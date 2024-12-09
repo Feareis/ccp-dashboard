@@ -1,0 +1,36 @@
+/* Corps général */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #2f3542; /* Fond général sombre mais pas trop */
+}
+
+/* Contenu principal */
+.content {
+  flex: 1;
+  padding: 20px;
+  background-color: #353b48; /* Fond légèrement plus clair pour le contenu */
+  color: #dcdde1; /* Texte clair */
+  overflow-y: auto;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  margin: 20px; /* Padding externe */
+  border-radius: 10px; /* Coins arrondis */
+}
+
+/* Conteneur global */
+.app {
+  display: flex;
+  height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 250px;
+  background-color: #353b48; /* Fond intermédiaire pour la sidebar */
+  color: #f5f6fa; /* Texte clair */
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2); /* Ombre plus prononcée pour un meilleur contraste */
+}

@@ -1,0 +1,130 @@
+/* Overlay pour obscurcir l'arrière-plan */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.7); /* Arrière-plan semi-transparent */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Place la modal au-dessus de tout */
+}
+
+/* Conteneur de la modal (pop-up) */
+.modal-popup {
+  background-color: #3a3d42; /* Fond de la modal */
+  padding: 20px 30px;
+  border-radius: 10px;
+  width: 400px; /* Largeur fixe */
+  max-width: 90%; /* Ajuste si l'écran est petit */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* Ombre */
+  color: #f5f6fa;
+}
+
+/* Formulaire vertical */
+.modal-form {
+  display: flex;
+  flex-direction: column; /* Organise les éléments verticalement */
+  gap: 15px; /* Espace entre les champs */
+  padding: 20px 0;
+}
+
+/* Groupement des champs */
+.form-group {
+  display: flex;
+  flex-direction: column; /* Assure que le label et l'input sont empilés */
+  gap: 5px;
+}
+
+label {
+  font-size: 14px;
+  color: #f5f6fa;
+}
+
+input,
+select {
+  padding: 8px; /* Même espacement interne que les inputs */
+  border: none;
+  border-radius: 5px; /* Coins arrondis identiques */
+  background-color: #2e3238; /* Même couleur de fond que les inputs */
+  color: #f5f6fa; /* Texte blanc */
+  font-size: 14px; /* Taille de police identique */
+  height: 40px; /* Ajuste la hauteur pour correspondre aux inputs */
+  box-sizing: border-box; /* Assure que padding et bordures sont inclus */
+}
+
+input:focus,
+select:focus {
+  outline: none;
+  border: 1px solid #8e44ad; /* Bordure au focus */
+}
+
+/* Icône dans le select */
+select {
+  appearance: none; /* Supprime le style par défaut du select */
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23f5f6fa' viewBox='0 0 16 16'%3e%3cpath fill-rule='evenodd' d='M1.5 5.5l6 6 6-6H1.5z'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 16px 16px;
+  padding-right: 30px;
+}
+
+/* Boutons */
+.form-buttons {
+  display: flex;
+  gap: 20px; /* Espace entre les boutons */
+  justify-content: center; /* Centre horizontalement */
+  margin-top: 20px;
+}
+
+button {
+  padding: 5px 10px;
+  font-size: 14px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #8e44ad;
+  color: white;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+.cancel-btn {
+  background-color: #e74c3c;
+}
+
+/* Ajoute un espacement entre le bouton Ajouter Employé(e) et la table */
+.liste-employes-container button {
+  margin-bottom: 20px; /* Espacement sous le bouton */
+}
+
+/* Réduction de l'espace au-dessus du tableau */
+.header-title {
+  margin-bottom: 10px; /* Réduit l’espace avec la table */
+}
+
+/* Empêche les débordements horizontaux */
+.ag-theme-alpine .ag-header-cell, .ag-theme-alpine .ag-cell {
+  white-space: nowrap; /* Empêche le contenu de s'étendre sur plusieurs lignes */
+  overflow: hidden; /* Masque les débordements */
+  text-overflow: ellipsis; /* Affiche des "..." si le contenu est trop long */
+}
+
+/* Ajuste les bordures des colonnes */
+.ag-theme-alpine .ag-header,
+.ag-theme-alpine .ag-row {
+  border-color: #ddd;
+}
+
+/* Alternance des lignes pour plus de lisibilité */
+.ag-theme-alpine .ag-row:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.ag-theme-alpine .ag-row:nth-child(odd) {
+  background-color: #ffffff;
+}

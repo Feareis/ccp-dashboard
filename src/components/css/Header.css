@@ -1,0 +1,67 @@
+.header {
+  background-color: #2f3542; /* Fond sombre harmonisé avec les cases de la sidebar */
+  padding: 20px;
+  margin: 20px auto;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Ombre légèrement plus marquée */
+  align-items: center;
+  color: #dcdde1; /* Texte clair pour contraste */
+}
+
+.breadcrumb {
+  font-size: 14px;
+  color: #b0bec5; /* Gris clair légèrement atténué */
+  margin-bottom: 10px;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+h1 {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0;
+  color: #f5f6fa; /* Gris très clair pour le titre */
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.search-input {
+  padding: 8px 12px;
+  border: 1px solid #4b4e54; /* Bordure sombre assortie */
+  background-color: #2e3238; /* Fond légèrement plus sombre */
+  color: #f5f6fa; /* Texte clair */
+  border-radius: 5px;
+  font-size: 14px;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #487eb0; /* Bordure bleu doux au focus */
+  background-color: #3a3d42; /* Fond un peu plus clair */
+}
+
+.icon-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.icon {
+  font-size: 20px;
+  cursor: pointer;
+  color: #dcdde1; /* Icônes en gris clair */
+  transition: color 0.3s ease;
+}
+
+.icon:hover {
+  color: #f5f6fa; /* Icônes légèrement éclaircies au survol */
+}

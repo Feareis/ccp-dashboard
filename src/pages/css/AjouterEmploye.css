@@ -1,0 +1,43 @@
+.ajouter-employe-container {
+  padding: 20px;
+  color: #f5f6fa;
+}
+
+.ajouter-employe-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.form-group {
+  flex: 1 1 45%; /* Occupe 45% de la largeur, deux colonnes */
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  margin-bottom: 5px;
+  color: #dcdde1;
+}
+
+input {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #2e3238;
+  color: #f5f6fa;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #8e44ad;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+button:hover {
+  background-color: #6f368c;
+}
