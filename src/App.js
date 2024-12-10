@@ -10,6 +10,8 @@ import Dashboard from "./pages/Dashboard";
 import Produits from "./pages/Produits";
 import Contrats from "./pages/Contrats";
 import GestionPatron from "./pages/GestionPatron";
+import GestionUtilisateurs from "./pages/GestionUtilisateurs";
+
 import ListeEmployees from "./pages/ListeEmployees";
 import SaisieVenteExportateur from "./pages/SaisieVenteExportateur";
 import SaisieVenteClient from "./pages/SaisieVenteClient";
@@ -36,11 +38,13 @@ function App() {
         {/* Contenu principal */}
         <div className="content">
           <Routes>
+            <Route path="/gestion-utilisateurs" element={<Layout pageTitle="Gestion Utilisateurs" breadcrumb="/ Gestion Utilisateurs"><GestionUtilisateurs /></Layout>} />
+            <Route path="/gestion-patron" element={<Layout pageTitle="Gestion Patron" breadcrumb="/ Gestion Patron"><GestionPatron /></Layout>} />
+            <Route path="/liste-employees" element={<Layout pageTitle="Liste Employées" breadcrumb="/ Liste Employees"><ListeEmployees /></Layout>} />
+
             <Route path="/" element={<Layout pageTitle="Dashboard" breadcrumb="/ Dashboard"><Dashboard /></Layout>} />
             <Route path="/produits" element={<Layout pageTitle="Produits" breadcrumb="/ Produits"><Produits /></Layout>} />
             <Route path="/contrats" element={<Layout pageTitle="Contrats" breadcrumb="/ Contrats"><Contrats /></Layout>} />
-            <Route path="/gestion-patron" element={<Layout pageTitle="Gestion Patron" breadcrumb="/ Gestion Patron"><GestionPatron /></Layout>} />
-            <Route path="/liste-employees" element={<Layout pageTitle="Liste Employées" breadcrumb="/ Liste Employees"><ListeEmployees /></Layout>} />
             <Route path="/saisie-vente-exportateur" element={<Layout pageTitle="Saisie Vente Exportateur" breadcrumb="/ Saisie Vente Exportateur"><SaisieVenteExportateur /></Layout>} />
             <Route path="/saisie-vente-client" element={<Layout pageTitle="Saisie Vente Client" breadcrumb="/ Saisie Vente Client"><SaisieVenteClient /></Layout>} />
             <Route path="/logs" element={<Layout pageTitle="Logs" breadcrumb="/ Logs"><Logs /></Layout>} />

@@ -2,22 +2,23 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; // Import de useNavigate
 import "./css/Login.css";
 
-const Login = ({ setIsAuthenticated }) => {
+
+const Login = ({ users, setIsAuthenticated }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate(); // Initialisation de useNavigate
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Username:", username, "Password:", password);
+    const user = users.find(
+      (u) => u.login === username && u.password === password
+    );
 
-    // Simule une connexion réussie
-    if (username && password) {
-      // Redirection vers le Dashboard
+    if (user) {
       setIsAuthenticated(true);
-      navigate("/"); // Redirige vers la page du Dashboard
+      navigate("/");
     } else {
-      alert("Veuillez entrer un pseudo et un mot de passe.");
+      alert("Login ou mot de passe incorrect.");
     }
   };
 

@@ -41,46 +41,16 @@ const Sidebar = () => {
 
       {/* Navigation */}
       <ul>
-        <li>
-          <NavLink to="/" activeClassName="active">
-            <FontAwesomeIcon icon={faChartBar} /> Dashboard
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/produits" activeClassName="active">
-            <FontAwesomeIcon icon={faBoxOpen} /> Produits
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/contrats" activeClassName="active">
-            <FontAwesomeIcon icon={faFileContract} /> Contrats
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/gestion-patron" activeClassName="active">
-            <FontAwesomeIcon icon={faUserTie} /> Gestion
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/liste-employees" activeClassName="active">
-            <FontAwesomeIcon icon={faUsers} /> Liste Employées
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/saisie-vente-exportateur" activeClassName="active">
-            <FontAwesomeIcon icon={faTruckLoading} /> Vente Exportateur
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/saisie-vente-client" activeClassName="active">
-            <FontAwesomeIcon icon={faClipboardList} /> Vente Client
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/logs" activeClassName="active">
-            <FontAwesomeIcon icon={faReceipt} /> Logs
-          </NavLink>
-        </li>
+        <li><NavLink to="/gestion-utilisateurs" activeClassName="active"><FontAwesomeIcon icon={faUsers} /> Gestion Utilisateurs</NavLink></li>
+        <li><NavLink to="/gestion-patron" activeClassName="active"><FontAwesomeIcon icon={faUserTie} /> Gestion</NavLink></li>
+        <li><NavLink to="/liste-employees" activeClassName="active"><FontAwesomeIcon icon={faUsers} /> Liste Employées</NavLink></li>
+
+        <li><NavLink to="/" activeClassName="active"><FontAwesomeIcon icon={faChartBar} /> Dashboard</NavLink></li>
+        <li><NavLink to="/produits" activeClassName="active"><FontAwesomeIcon icon={faBoxOpen} /> Produits</NavLink></li>
+        <li><NavLink to="/contrats" activeClassName="active"><FontAwesomeIcon icon={faFileContract} /> Contrats</NavLink></li>
+        <li><NavLink to="/saisie-vente-exportateur" activeClassName="active"><FontAwesomeIcon icon={faTruckLoading} /> Vente Exportateur</NavLink></li>
+        <li><NavLink to="/saisie-vente-client" activeClassName="active"><FontAwesomeIcon icon={faClipboardList} /> Vente Client</NavLink></li>
+        <li><NavLink to="/logs" activeClassName="active"><FontAwesomeIcon icon={faReceipt} /> Logs</NavLink></li>
       </ul>
 
       {/* Modal Settings */}

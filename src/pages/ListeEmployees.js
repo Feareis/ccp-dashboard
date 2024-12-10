@@ -5,7 +5,7 @@ import "ag-grid-community/styles/ag-theme-alpine.css";
 import "./css/ListeEmployes.css";
 import { getEmployees, addEmployee, updateEmployee, deleteEmployee } from "../db/db";
 
-const ListeEmployes = () => {
+const ListeEmployes = ({ onCreateUser }) => {
   const [employees, setEmployees] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newEmployee, setNewEmployee] = useState({
@@ -17,7 +17,6 @@ const ListeEmployes = () => {
   });
   const [editingEmployeeId, setEditingEmployeeId] = useState(null);
 
-  // Charger les employés au démarrage
   useEffect(() => {
     const fetchEmployees = async () => {
       const data = await getEmployees();
@@ -26,10 +25,17 @@ const ListeEmployes = () => {
     fetchEmployees();
   }, []);
 
-  // Ajouter ou modifier un employé
   const handleSaveEmployee = async () => {
+    if (!newEmployee.prenom || !newEmployee.nom) {
+      alert("Veuillez remplir les champs Prénom et Nom.");
+      return;
+    }
+
+    const login = `${newEmployee.prenom[0].toLowerCase()}.${newEmployee.nom.toLowerCase()}`;
+    const password = Math.random().toString(36).substring(2, 10);
+
     if (editingEmployeeId) {
-      const updatedEmployee = { ...newEmployee, id: editingEmployeeId };
+      const updatedEmployee = { ...newEmployee, id: editingEmployeeId, login, password };
       await updateEmployee(updatedEmployee);
       setEmployees((prev) =>
         prev.map((emp) =>
@@ -37,14 +43,15 @@ const ListeEmployes = () => {
         )
       );
     } else {
-      await addEmployee(newEmployee);
+      const newEmp = { ...newEmployee, login, password };
+      await addEmployee(newEmp);
+      onCreateUser(newEmp); // Mise à jour dans Gestion.js
       const data = await getEmployees();
       setEmployees(data);
     }
     resetModal();
   };
 
-  // Supprimer un employé
   const handleDeleteEmployee = async (id) => {
     if (window.confirm("Voulez-vous vraiment supprimer cet employé ?")) {
       await deleteEmployee(id);
@@ -53,7 +60,6 @@ const ListeEmployes = () => {
     }
   };
 
-  // Ouvrir la modal pour ajouter ou modifier
   const openEditModal = (employee = null) => {
     if (employee) {
       setNewEmployee(employee);
@@ -71,7 +77,6 @@ const ListeEmployes = () => {
     setIsModalOpen(true);
   };
 
-  // Réinitialiser la modal
   const resetModal = () => {
     setIsModalOpen(false);
     setNewEmployee({
@@ -84,37 +89,21 @@ const ListeEmployes = () => {
     setEditingEmployeeId(null);
   };
 
-  const formatPhoneNumber = (phone) => {
-    phone = phone.replace(/\D/g, "");
-    if (phone.length === 10) {
-      return `(${phone.slice(0, 3)}) ${phone.slice(3, 7)}-${phone.slice(7)}`;
-    }
-    return phone;
-  };
-
   const columnDefs = [
-    { headerName: "Statut", field: "statut", resizable: false },
-    { headerName: "Prénom", field: "prenom", resizable: false },
-    { headerName: "Nom", field: "nom", resizable: false },
-    {
-      headerName: "Numéro de Téléphone",
-      field: "telephone",
-      resizable: false,
-      valueFormatter: (params) => formatPhoneNumber(params.value),
-    },
-    { headerName: "Date d'Embauche", field: "embauche", resizable: false },
+    { headerName: "Statut", field: "statut" },
+    { headerName: "Prénom", field: "prenom" },
+    { headerName: "Nom", field: "nom" },
+    { headerName: "Numéro de Téléphone", field: "telephone" },
+    { headerName: "Date d'Embauche", field: "embauche" },
     {
       headerName: "Actions",
       field: "id",
-      cellRendererFramework: () => <button>Test Bouton</button>,
-      /*
       cellRendererFramework: (params) => (
         <div style={{ display: "flex", gap: "10px" }}>
           <button onClick={() => openEditModal(params.data)}>Modifier</button>
           <button onClick={() => handleDeleteEmployee(params.data.id)}>Supprimer</button>
         </div>
       ),
-      */
     },
   ];
 
@@ -126,13 +115,12 @@ const ListeEmployes = () => {
         <AgGridReact
           rowData={employees}
           columnDefs={columnDefs}
-          defaultColDef={{ flex: 1, minWidth: 150, resizable: false }}
+          defaultColDef={{ flex: 1, minWidth: 150 }}
           domLayout="autoHeight"
           pagination={true}
           paginationPageSize={10}
         />
       </div>
-
       {isModalOpen && (
         <div className="modal-overlay">
           <div className="modal-popup">
@@ -176,43 +164,16 @@ const ListeEmployes = () => {
                   }
                 />
               </div>
-              <div className="form-group">
-                <label>Numéro de Téléphone</label>
-                <input
-                  type="text"
-                  name="telephone"
-                  value={formatPhoneNumber(newEmployee.telephone)}
-                  onChange={(e) =>
-                    setNewEmployee({
-                      ...newEmployee,
-                      telephone: e.target.value.replace(/\D/g, ""),
-                    })
-                  }
-                />
-              </div>
-              <div className="form-group">
-                <label>Date d'Embauche</label>
-                <input
-                  type="date"
-                  name="embauche"
-                  value={newEmployee.embauche}
-                  onChange={(e) =>
-                    setNewEmployee({ ...newEmployee, embauche: e.target.value })
-                  }
-                />
-              </div>
-              <div className="form-buttons">
-                <button type="button" onClick={handleSaveEmployee}>
-                  {editingEmployeeId ? "Modifier" : "Ajouter"}
-                </button>
-                <button
-                  type="button"
-                  onClick={resetModal}
-                  className="cancel-btn"
-                >
-                  Annuler
-                </button>
-              </div>
+              <button type="button" onClick={handleSaveEmployee}>
+                {editingEmployeeId ? "Modifier" : "Ajouter"}
+              </button>
+              <button
+                type="button"
+                onClick={resetModal}
+                className="cancel-btn"
+              >
+                Annuler
+              </button>
             </form>
           </div>
         </div>
