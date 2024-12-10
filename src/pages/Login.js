@@ -1,15 +1,21 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; // Import de useNavigate
+import { useNavigate } from "react-router-dom";
 import "./css/Login.css";
 
-
-const Login = ({ users, setIsAuthenticated }) => {
+const Login = ({ users = [], setIsAuthenticated }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    // Vérifie si users est bien défini
+    if (!users || users.length === 0) {
+      alert("Aucun utilisateur trouvé !");
+      return;
+    }
+
     const user = users.find(
       (u) => u.login === username && u.password === password
     );
@@ -25,12 +31,12 @@ const Login = ({ users, setIsAuthenticated }) => {
   return (
     <div className="login-container">
       <div className="login-box">
-        <h2>La Cantina</h2>
+        <h2>Connexion</h2>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <input
               type="text"
-              placeholder="username"
+              placeholder="Login"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               required
@@ -39,7 +45,7 @@ const Login = ({ users, setIsAuthenticated }) => {
           <div className="form-group">
             <input
               type="password"
-              placeholder="mot de passe"
+              placeholder="Mot de passe"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
@@ -53,7 +59,7 @@ const Login = ({ users, setIsAuthenticated }) => {
             <img src={require("../assets/logo/transparent-dicord-logo.png")} alt="Discord" />
           </a>
         </div>
-        <footer>Feareis - © 2024</footer>
+      <footer>Feareis - © 2024</footer>
       </div>
     </div>
   );

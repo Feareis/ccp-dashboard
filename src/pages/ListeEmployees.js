@@ -26,8 +26,8 @@ const ListeEmployes = ({ onCreateUser }) => {
   }, []);
 
   const handleSaveEmployee = async () => {
-    if (!newEmployee.prenom || !newEmployee.nom) {
-      alert("Veuillez remplir les champs Prénom et Nom.");
+    if (!newEmployee.prenom || !newEmployee.nom || !newEmployee.telephone || !newEmployee.embauche) {
+      alert("Tous les champs doivent être remplis.");
       return;
     }
 
@@ -45,7 +45,7 @@ const ListeEmployes = ({ onCreateUser }) => {
     } else {
       const newEmp = { ...newEmployee, login, password };
       await addEmployee(newEmp);
-      onCreateUser(newEmp); // Mise à jour dans Gestion.js
+      onCreateUser(newEmp); // Mise à jour dans GestionUtilisateurs.js
       const data = await getEmployees();
       setEmployees(data);
     }
@@ -90,22 +90,29 @@ const ListeEmployes = ({ onCreateUser }) => {
   };
 
   const columnDefs = [
-    { headerName: "Statut", field: "statut" },
-    { headerName: "Prénom", field: "prenom" },
-    { headerName: "Nom", field: "nom" },
-    { headerName: "Numéro de Téléphone", field: "telephone" },
-    { headerName: "Date d'Embauche", field: "embauche" },
-    {
-      headerName: "Actions",
-      field: "id",
-      cellRendererFramework: (params) => (
-        <div style={{ display: "flex", gap: "10px" }}>
-          <button onClick={() => openEditModal(params.data)}>Modifier</button>
-          <button onClick={() => handleDeleteEmployee(params.data.id)}>Supprimer</button>
-        </div>
-      ),
-    },
+      { headerName: "Statut", field: "statut" },
+      { headerName: "Prénom", field: "prenom" },
+      { headerName: "Nom", field: "nom" },
+      { headerName: "Numéro de Téléphone", field: "telephone" },
+      { headerName: "Date d'Embauche", field: "embauche" },
+      {
+          headerName: "Actions",
+          cellRendererFramework: (params) => (
+              <div style={{ display: "flex", gap: "10px" }}>
+                  <button onClick={() => openEditModal(params.data)}>Modifier</button>
+                  <button onClick={() => handleDeleteEmployee(params.data.id)}>Supprimer</button>
+              </div>
+          ),
+      },
   ];
+
+  const formatPhoneNumber = (phone) => {
+    phone = phone.replace(/\D/g, "");
+    if (phone.length === 10) {
+      return `(${phone.slice(0, 3)}) ${phone.slice(3, 6)}-${phone.slice(6)}`;
+    }
+    return phone;
+  };
 
   return (
     <div className="liste-employes-container">
@@ -118,7 +125,7 @@ const ListeEmployes = ({ onCreateUser }) => {
           defaultColDef={{ flex: 1, minWidth: 150 }}
           domLayout="autoHeight"
           pagination={true}
-          paginationPageSize={10}
+          paginationPageSize={30}
         />
       </div>
       {isModalOpen && (
@@ -164,16 +171,43 @@ const ListeEmployes = ({ onCreateUser }) => {
                   }
                 />
               </div>
-              <button type="button" onClick={handleSaveEmployee}>
-                {editingEmployeeId ? "Modifier" : "Ajouter"}
-              </button>
-              <button
-                type="button"
-                onClick={resetModal}
-                className="cancel-btn"
-              >
-                Annuler
-              </button>
+              <div className="form-group">
+                <label>Numéro de Téléphone</label>
+                <input
+                  type="text"
+                  name="telephone"
+                  value={formatPhoneNumber(newEmployee.telephone)}
+                  onChange={(e) =>
+                    setNewEmployee({
+                      ...newEmployee,
+                      telephone: e.target.value.replace(/\D/g, ""),
+                    })
+                  }
+                />
+              </div>
+              <div className="form-group">
+                <label>Date d'Embauche</label>
+                <input
+                  type="date"
+                  name="embauche"
+                  value={newEmployee.embauche}
+                  onChange={(e) =>
+                    setNewEmployee({ ...newEmployee, embauche: e.target.value })
+                  }
+                />
+              </div>
+              <div className="form-buttons">
+                <button type="button" onClick={handleSaveEmployee}>
+                  {editingEmployeeId ? "Modifier" : "Ajouter"}
+                </button>
+                <button
+                  type="button"
+                  onClick={resetModal}
+                  className="cancel-btn"
+                >
+                  Annuler
+                </button>
+              </div>
             </form>
           </div>
         </div>
